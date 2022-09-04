@@ -5,81 +5,86 @@ import Education from "./educationForm";
 import WorkExperience from "./workExperienceForm";
 
 function App() {
-  const [personalState, setPersonalState] = React.useState({
-    name: "",
-    phoneNumber: "",
-    email: "",
-    objectiveStatement: "",
-  });
-
-  const [educationState, setEducationState] = React.useState([
-    {
-      key: 0,
-      nameOfCollege: "",
-      major: "",
-      gpa: "",
-      startDate: "",
-      endDate: "",
-    },
-  ]);
-  const [workExperienceState, setWorkExperienceState] = React.useState([]);
-  const [honorsState, setHonorsState] = React.useState([]);
-  const [formIndex, setFormIndex] = React.useState(0);
-  const [forms, setForms] = React.useState([
-    <Personal handleEvent={personalEventHandler} state={personalState} />,
-    <Education
-      educationStateIndex={0}
-      addNewEducation={addNewEducation}
-      handleChange={EducationEventHandler}
-      educationState = {educationState}
-    />,
-    <WorkExperience />,
-  ]);
-
-  function personalEventHandler(e) {
-    setPersonalState((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-   
-  }
-
-  function addNewEducation() {
-    setEducationState((prevState) =>    
+  const [objectsState, setObjectsState] = React.useState([
     [
-      ...prevState,
       {
-        key: prevState.length,
+        formName: "Personal",
+        name: "",
+        phoneNumber: "",
+        email: "",
+        objectiveStatement: "",
+      },
+    ],
+    [
+      {
+        formName: "Education",
+        key: 0,
         nameOfCollege: "",
         major: "",
         gpa: "",
         startDate: "",
         endDate: "",
       },
-    ]);   
-    setForms((prevState) => {
-      const newArr = prevState;
-      newArr.splice(educationState.length+1, 0,<Education
-        educationStateIndex={educationState.length}
-        addNewEducation={addNewEducation}
-        handleChange={EducationEventHandler}
-        educationState={educationState}
-      />)
-     return newArr;
-    });
-    setFormIndex(prevState=>prevState+1)
+    ],
+    [
+      {
+        formName: "Work",
+        key: 0,
+        nameOfCompany: "",
+        role: "",
+        responsibilities: "",
+        startDate: "",
+        endDate: "",
+      },
+    ],
+  ]);
+
+  const [formIndex, setFormIndex] = React.useState(0);
+
+  const formsStack = objectsState.flat(1);
+  console.log(formsStack);
+  function returnForm() {
+    if (formsStack[formIndex].formName === "Personal") {
+      return <Personal eventHandler={eventHandler} state={objectsState[0]} />;
+    } else if (formsStack[formIndex].formName === "Education") {
+      return (
+        <Education
+          educationStateIndex={formsStack[formIndex].key}
+          eventHandler={eventHandler}
+          addNewEducation={addNewEducation}
+          state = {objectsState[1]}
+        />
+      );
+    } else if (formsStack[formIndex].formName === "Work") {
+      return <WorkExperience />;
+    }
   }
 
-  function EducationEventHandler(key, e) {
-    setEducationState((prevState) => {
-      const newState = prevState.map((educationObject) => {
-        if (educationObject.key === key) {
-          return { ...educationObject, [e.target.name]: e.target.value };
-        }
-        return educationObject;
-      });
-      return newState;
-    });   
+  function eventHandler(e, subarrIndex, objectIndex) {
+    setObjectsState((prevState) => {
+      const newArr = [...prevState];
+      newArr[subarrIndex][objectIndex] = {
+        ...prevState[subarrIndex][objectIndex],
+        [e.target.name]: e.target.value,
+      };
+      return newArr;
+    });
+  }
+
+  function addNewEducation() {
+    setObjectsState((prevState) => {
+      const newArr = [...prevState];
+      newArr[1][prevState[1].length] = {
+        formName: "Education",
+        key: prevState[1].length,
+        nameOfCollege: "",
+        major: "",
+        gpa: "",
+        startDate: "",
+        endDate: "",
+      };
+      return newArr;
+    });
   }
 
   function nextForm() {
@@ -95,7 +100,7 @@ function App() {
 
   return (
     <div id="app">
-      <div id="formContainer">{forms[formIndex]}</div>
+      <div id="formContainer">{returnForm()}</div>
       <div id="display"></div>
       <div id="buttons">
         {formIndex !== 0 && (

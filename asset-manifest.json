@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/cv-creator-functional-react/static/css/main.226f9376.css",
+    "main.css": "/cv-creator-functional-react/static/css/main.e64baaf1.css",
     "main.js": "/cv-creator-functional-react/static/js/main.593f0b96.js",
     "static/js/703.45a4dc4c.chunk.js": "/cv-creator-functional-react/static/js/703.45a4dc4c.chunk.js",
     "static/js/573.478ec4a4.chunk.js": "/cv-creator-functional-react/static/js/573.478ec4a4.chunk.js",
     "static/js/787.3daa7712.chunk.js": "/cv-creator-functional-react/static/js/787.3daa7712.chunk.js",
     "index.html": "/cv-creator-functional-react/index.html",
-    "main.226f9376.css.map": "/cv-creator-functional-react/static/css/main.226f9376.css.map",
+    "main.e64baaf1.css.map": "/cv-creator-functional-react/static/css/main.e64baaf1.css.map",
     "main.593f0b96.js.map": "/cv-creator-functional-react/static/js/main.593f0b96.js.map",
     "703.45a4dc4c.chunk.js.map": "/cv-creator-functional-react/static/js/703.45a4dc4c.chunk.js.map",
     "573.478ec4a4.chunk.js.map": "/cv-creator-functional-react/static/js/573.478ec4a4.chunk.js.map",
     "787.3daa7712.chunk.js.map": "/cv-creator-functional-react/static/js/787.3daa7712.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.226f9376.css",
+    "static/css/main.e64baaf1.css",
     "static/js/main.593f0b96.js"
   ]
 }
